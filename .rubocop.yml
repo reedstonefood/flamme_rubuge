@@ -1,0 +1,38 @@
+AllCops:
+  Exclude:
+    - flamme_rubuge.gemspec
+  TargetRubyVersion: 2.6
+
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 120
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*
+
+Metrics/ClassLength:
+  Max: 120
+
+Style/BlockDelimiters:
+  Exclude:
+    - spec/**/*
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+# This appears buggy for hashes with symbols with spaces for keys
+# It requests a change to 1.9 hash syntax even though it's impossible
+Style/HashSyntax:
+  Enabled: false
+
+Style/StringLiterals:
+  Enabled: false
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
