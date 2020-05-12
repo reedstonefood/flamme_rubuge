@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    flamme_rubuge (0.1.0)
+    flamme_rubuge (0.0.1)
 
 GEM
   remote: https://rubygems.org/

@@ -1,8 +1,9 @@
 require 'spec_helper'
 
 describe FlammeRubuge::Race do
-  let(:sprinter) { FlammeRubuge::Cyclist::SPRINTER }
-  let(:roller) { FlammeRubuge::Cyclist::ROLLER }
+  let(:cyclist_types) { FlammeRubuge::Cyclist::TYPES }
+  let(:sprinter) { cyclist_types.detect { |t| t[:type] == :sprinteur } }
+  let(:roller) { cyclist_types.detect { |t| t[:type] == :rouleur } }
   let(:player_details) {
     [
       { name: "Amy", color: :red, cyclists: [sprinter, roller] },

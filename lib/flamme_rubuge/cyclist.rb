@@ -6,27 +6,34 @@ module FlammeRubuge
     class CardNotFoundError < StandardError; end
     class CyclistAlreadyHasPlayerError < StandardError; end
 
-    attr_reader :type, :played, :player, :finish_position
+    private_class_method def self.descendants
+      ObjectSpace.each_object(Class).select { |klass| klass < self }
+    end
 
-    SPRINTER = :sprinteur
-    ROLLER = :rouleur
-    CYCLIST_TYPES = [SPRINTER, ROLLER].freeze
+    TYPES = descendants.map do |subclass|
+      {
+        klass: subclass,
+        type: subclass.type,
+      }
+    end
 
-    def initialize(type, initial_cards)
-      raise UnknownCyclistTypeError unless CYCLIST_TYPES.include?(type)
-      @type = type
+    attr_reader :played, :player, :finish_position
+
+    def initialize(extra_cards = [])
       @deck = []
       @played = []
       @discards = []
-      setup_deck(initial_cards)
+      setup_deck(extra_cards)
     end
 
-    def setup_deck(initial_cards)
+    def setup_deck(extra_cards)
       return unless @deck.empty?
 
       initial_cards.each do |card_value|
         @deck << Card.new(card_value)
       end
+
+      @deck.concat(extra_cards)
       @deck.shuffle!
     end
 

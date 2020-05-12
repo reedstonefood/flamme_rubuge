@@ -4,7 +4,8 @@ module FlammeRubuge
     class InvalidPlayerDetailsError < StandardError; end
     attr_reader :players, :track, :state
 
-    # players_details looks like {name: "Bob", color: :red, cyclists: [sprinter, roller]}
+    # players_details looks like {name: "Bob", color: :red, cyclists: [SPRINTER, ROLLER]}
+    # The elements of cyclist array must be part of Cyclist.TYPES
     def initialize(player_details, track)
       validate_player_details(player_details)
       @players = []
@@ -39,7 +40,7 @@ module FlammeRubuge
     def create_players(player_details)
       player_details.each do |player|
         cyclists = player[:cyclists].map do |cyclist_type|
-          Cyclist.new(cyclist_type, RaceConfig.initial_deck(cyclist_type))
+          cyclist_type[:klass].new
         end
         players << Player.new(player[:color], player[:name], cyclists)
       end
